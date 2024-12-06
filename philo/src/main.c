@@ -6,7 +6,7 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:18:08 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/06 16:03:57 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:09:08 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,18 @@ argv[5] = [number_of_times_each_philosopher_must_eat]
 /*
 typedef struct s_table
 {
-	int num_philo;
-	int num_fork;
+	int	num_philo;
+	int	num_fork;
 	int	time_to_die;
-	int time_to_eat;
-	int time_to_sleep;
+	int	time_to_eat;
+	int	time_to_sleep;
 	int	amount_to_eat;
-}	t_table;
+}		t_table;
 */
 
-t_table *init_table(int argc, char **argv)
-{
-	t_table *table;
-	
-	table->num_philo = ft_atoi(argv[1]);
-	table->num_fork = ft_atoi(argv[1]);
-	table->time_to_die = ft_atoi(argv[2]);
-	table->time_to_eat = ft_atoi(argv[3]);
-	table->time_to_sleep = ft_atoi(argv[4]);
-	if(argc > 4)
-		table->amount_to_eat = ft_atoi(argv[5]);
-	
-}
+// https://m4nnb3ll.medium.com/the-dining-philoshophers-an-introduction-to-multitasking-a-42-the-network-project-34e4141dbc49
 
-void validate_inputs(int argc, char **argv)
+void	validate_inputs(int argc, char **argv)
 {
 	if (argc < 4)
 	{
@@ -61,14 +49,27 @@ void validate_inputs(int argc, char **argv)
 	}
 }
 
-int main(int argc, char **argv)
+t_table	*init_table(int argc, char **argv)
 {
 	t_table	*table;
-	
+
+	table->num_philo = ft_atoi(argv[1]);
+	table->num_fork = ft_atoi(argv[1]);
+	table->time_to_die = ft_atoi(argv[2]);
+	table->time_to_eat = ft_atoi(argv[3]);
+	table->time_to_sleep = ft_atoi(argv[4]);
+	if (argc > 4)
+		table->amount_to_eat = ft_atoi(argv[5]);
+}
+
+int	main(int argc, char **argv)
+{
+	t_table	*table;
+
 	validate_inputs(argc, argv);
 	table = init_table(argc, argv);
-	
+	// I think I'd need to create a loop for every philosophers
+	// that would create a thread for each one.
 	printf("Makefile Works!\n");
 	return (0);
 }
-

@@ -10,4 +10,14 @@
 # include <unistd.h>
 # include <pthread.h>
 
+typedef struct s_table
+{
+	int num_philo;
+	int num_fork;
+	int	time_to_die;
+	int time_to_eat;
+	int time_to_sleep;
+	int	amount_to_eat;
+}	t_table;
+
 #endif

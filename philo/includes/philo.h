@@ -20,4 +20,14 @@ typedef struct s_table
 	int	amount_to_eat;
 }	t_table;
 
+// utils.c //
+int	ft_atoi(const char *str);
+void	ft_putnbr_fd(int n, int fd);
+
+// actions.c //
+void eat(int num_philo);
+void think(int num_philo);
+void sleeping(int num_philo);
+void die(int num_philo);
+
 #endif

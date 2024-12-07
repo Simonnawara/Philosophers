@@ -12,11 +12,11 @@
 
 NAME = philo
 BONUS = philo_bonus
-SRCS = main.c
+SRCS = main.c utils.c actions.c
 BONUS_SRCS =
 
 CC = gcc
-CCFLAG = -Wall -Werror -Wextra
+CCFLAG = -Wall -Werror -Wextra -pthread
 
 SUCCESS_COLOR = \033[38;2;220;220;200m
 

@@ -39,3 +39,8 @@ void die(int num_philo)
 	ft_putnbr_fd(num_philo, 1);
 	write(1, "has died\n", 9);
 }
+
+void wait(int time)
+{
+	usleep(time);
+}

@@ -37,29 +37,45 @@ typedef struct s_table
 
 void	validate_inputs(int argc, char **argv)
 {
-	if (argc < 4)
+	if (argc < 5 || argc > 6)
 	{
-		perror("Invalid number of arguments\n");
+		ft_putendl_fd("Invalid number of arguments\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	if (ft_atoi(argv[1]) < 1)
 	{
-		perror("Not enough philosophers\n");
+		ft_putendl_fd("Not enough philosophers\n", 2);
 		exit(EXIT_FAILURE);
 	}
+    if (ft_atoi(argv[2]) < 0 || ft_atoi(argv[3]) < 0 || ft_atoi(argv[4]) < 0)
+    {
+        ft_putendl_fd("Error: Time values cannot be negative", 2);
+        exit(EXIT_FAILURE);
+    }
+    if (argc == 6 && ft_atoi(argv[5]) < 1)
+    {
+        ft_putendl_fd("Error: Number of times to eat must be positive", 2);
+        exit(EXIT_FAILURE);
+    }
 }
 
 t_table	*init_table(int argc, char **argv)
 {
 	t_table	*table;
 
+	table = (t_table *)malloc(sizeof(t_table));
+	if (!table)
+		return (NULL);
 	table->num_philo = ft_atoi(argv[1]);
 	table->num_fork = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
-	if (argc > 4)
+	if (argc == 6)
 		table->amount_to_eat = ft_atoi(argv[5]);
+	else
+		table->amount_to_eat = -1;
+	return (table);
 }
 
 int	main(int argc, char **argv)
@@ -70,6 +86,11 @@ int	main(int argc, char **argv)
 	table = init_table(argc, argv);
 	// I think I'd need to create a loop for every philosophers
 	// that would create a thread for each one.
+	// and a mutex for each fork
+	// now  I have to implement a timing function for each time
+
+	// each time a filosopher is done eating, the usleep timer
+	// for their death resets
 	printf("Makefile Works!\n");
 	return (0);
 }

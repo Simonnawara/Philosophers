@@ -48,7 +48,6 @@ int	ft_atoi(const char *str)
 	return (num);
 }
 
-
 void	ft_putnbr_fd(int n, int fd)
 {
 	char	nb_char;
@@ -73,4 +72,17 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 	else
 		write (fd, &nb_char, 1);
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+	{
+		write (fd, &s[i], 1);
+		i++;
+	}
+	write (fd, "\n", 1);
 }

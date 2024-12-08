@@ -63,9 +63,19 @@ t_table	*init_table(int argc, char **argv)
 {
 	t_table	*table;
 
+	int	i;
+
 	table = (t_table *)malloc(sizeof(t_table));
 	if (!table)
 		return (NULL);
+	table->philosophers = malloc(sizeof(pthread_t) * ft_atoi(argv[1])); //ft_atoi(argv[1]) = num_philo
+	table->forks = malloc(sizeof(pthread_mutex_t) * ft_atoi(argv[1]));
+	i = 0;
+	while(i < ft_atoi(argv[1]))
+	{
+		pthread_mutex_init(table->forks[i], NULL);
+		i++;
+	}
 	table->num_philo = ft_atoi(argv[1]);
 	table->num_fork = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);

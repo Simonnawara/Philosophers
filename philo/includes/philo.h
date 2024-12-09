@@ -42,6 +42,7 @@ void eat(int num_philo);
 void think(int num_philo);
 void sleeping(int num_philo);
 void die(int num_philo);
-void waiting(int time);
+int check_death(t_philo *philo);
+void *monitor_routine(void *arg);
 
 #endif

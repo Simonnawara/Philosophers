@@ -1,5 +1,5 @@
-#ifndef PIPEX_H
-#define PIPEX_H
+#ifndef PHILOSOPHERS_H
+#define PHILOSOPHERS_H
 
 #include <fcntl.h>
 #include <limits.h>
@@ -9,6 +9,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <libc.h>
+
 
 typedef struct s_table
 {
@@ -22,6 +24,14 @@ typedef struct s_table
 	int amount_to_eat;
 } t_table;
 
+typedef struct s_philo
+{
+	int id;
+	int	meals_eaten;
+	struct timeval last_meal_time;
+	t_table *table;
+}	t_philo;
+
 // utils.c //
 int		ft_atoi(const char *str);
 void	ft_putnbr_fd(int n, int fd);
@@ -32,6 +42,6 @@ void eat(int num_philo);
 void think(int num_philo);
 void sleeping(int num_philo);
 void die(int num_philo);
-void wait(int time);
+void waiting(int time);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 15:46:13 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/10 15:08:28 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:33:42 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void philo_eat(int num_philo, int wait_time, t_philo *philo)
     pthread_mutex_lock(&philo->table->print_mutex);
     printf("%ldms Philo no %d is eating\n", get_timestamp(), num_philo);
     pthread_mutex_unlock(&philo->table->print_mutex);
-    usleep(wait_time * 1000);
+    usleep(wait_time * 10);
 }
 
 void philo_sleep(int num_philo, int wait_time, t_philo *philo)

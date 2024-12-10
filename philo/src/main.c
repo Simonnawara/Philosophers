@@ -6,7 +6,7 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:18:08 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/10 15:08:38 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:29:45 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,19 +118,24 @@ void *philo_routine(void *arg)
 			pthread_mutex_lock(&philo->table->forks[philo->id % philo->table->num_philo]);
 			pthread_mutex_lock(&philo->table->forks[philo->id - 1]);
 			pthread_mutex_lock(&philo->table->print_mutex);
-            printf("%ldms Philo no %d has taken right fork\n", get_timestamp(), philo->id);
+        	printf("%ldms Philo no %d has taken right fork\n", get_timestamp(), philo->id);
 			printf("%ldms Philo no %d has taken left fork\n", get_timestamp(), philo->id);
 			pthread_mutex_unlock(&philo->table->print_mutex);
         }
-        
+
+		/* pthread_mutex_lock(&philo->table->print_mutex);
+            printf("We are in the loop.\n");
+		pthread_mutex_unlock(&philo->table->print_mutex); */
+       
         philo_eat(philo->id, philo->table->time_to_eat, philo);
+
+		// the loop stops running here
         philo->meals_eaten++;		
 		gettimeofday(&philo->last_meal_time, NULL);
-
-        
+		
         pthread_mutex_unlock(&philo->table->forks[philo->id % philo->table->num_philo]);
         pthread_mutex_unlock(&philo->table->forks[philo->id - 1]);
-
+		
         philo_sleep(philo->id, philo->table->time_to_sleep, philo);
     }
 	return(NULL);

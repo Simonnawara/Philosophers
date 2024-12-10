@@ -16,6 +16,8 @@ typedef struct s_table
 {
 	pthread_t *philosophers;
 	pthread_mutex_t *forks;
+	pthread_mutex_t print_mutex;
+	int simulation_running;
 	int num_philo;
 	int num_fork;
 	int time_to_die;
@@ -37,11 +39,14 @@ int		ft_atoi(const char *str);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putendl_fd(char *s, int fd);
 
+// time.c //
+long get_timestamp(void);
+
 // actions.c //
-void eat(int num_philo);
-void think(int num_philo);
-void sleeping(int num_philo);
-void die(int num_philo);
+void philo_eat(int num_philo, int wait_time, t_philo *philo);
+void philo_sleep(int num_philo, int wait_time, t_philo *philo);
+void philo_think(int num_philo, t_philo *philo);
+void philo_die(int num_philo, t_philo *philo);
 int check_death(t_philo *philo);
 void *monitor_routine(void *arg);
 

@@ -6,38 +6,40 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 15:46:13 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/09 16:22:24 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:08:28 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void eat(int num_philo)
+void philo_eat(int num_philo, int wait_time, t_philo *philo)
 {
-	write(1, "Philo no ", 8);
-	ft_putnbr_fd(num_philo, 1);
-	write(1, "is eating\n", 10);
+    pthread_mutex_lock(&philo->table->print_mutex);
+    printf("%ldms Philo no %d is eating\n", get_timestamp(), num_philo);
+    pthread_mutex_unlock(&philo->table->print_mutex);
+    usleep(wait_time * 1000);
 }
 
-void think(int num_philo)
+void philo_sleep(int num_philo, int wait_time, t_philo *philo)
 {
-	write(1, "Philo no ", 8);
-	ft_putnbr_fd(num_philo, 1);
-	write(1, "is thinking\n", 12);
+	pthread_mutex_lock(&philo->table->print_mutex);
+    printf("%ldms Philo no %d is sleeping\n", get_timestamp(), num_philo);
+    pthread_mutex_unlock(&philo->table->print_mutex);
+	usleep(wait_time * 1000);
 }
 
-void sleeping(int num_philo)
+void philo_think(int num_philo, t_philo *philo)
 {
-	write(1, "Philo no ", 8);
-	ft_putnbr_fd(num_philo, 1);
-	write(1, "is sleeping\n", 12);
+ 	pthread_mutex_lock(&philo->table->print_mutex);
+    printf("%ldms Philo no %d is thinking\n", get_timestamp(), num_philo);
+    pthread_mutex_unlock(&philo->table->print_mutex);
 }
 
-void die(int num_philo)
+void philo_die(int num_philo, t_philo *philo)
 {
-	write(1, "Philo no ", 8);
-	ft_putnbr_fd(num_philo, 1);
-	write(1, "has died\n", 9);
+    pthread_mutex_lock(&philo->table->print_mutex);
+    printf("%ldms Philo no %d has died\n", get_timestamp(), num_philo);
+    pthread_mutex_unlock(&philo->table->print_mutex);
 }
 
 int check_death(t_philo *philo)
@@ -51,7 +53,7 @@ int check_death(t_philo *philo)
     
     if (time_diff > philo->table->time_to_die)
     {
-        die(philo->id);
+        philo_die(philo->id, philo);
         return (1);
     }
     return (0);

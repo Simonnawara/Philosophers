@@ -6,13 +6,13 @@
 #    By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/29 16:23:18 by sinawara          #+#    #+#              #
-#    Updated: 2024/12/06 10:31:13 by sinawara         ###   ########.fr        #
+#    Updated: 2024/12/10 13:30:55 by sinawara         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 BONUS = philo_bonus
-SRCS = main.c utils.c actions.c
+SRCS = main.c utils.c actions.c time.c
 BONUS_SRCS =
 
 CC = gcc
@@ -52,11 +52,44 @@ $(PHILO_WHITE)░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒
 $(PHILO_WHITE)░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░     ░▒▓█▓▒░░▒▓█▓▒░ $(PHILO_white)\n\
 $(PHILO_WHITE)░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓████████▓▒░▒▓██████▓▒░  $(PHILO_white)\n"
 
+TOTAL_FILES := 0
+COMPILED_FILES := 0 # Initialize to zero
 
+all : $(NAME)
 
-TOTAL_FILES := $(words $(SRCS) $(BONUS_SRCS))
-COMPILED_FILES = 0
+bonus : $(BONUS)
 
+# Dynamically calculate total files for each target
+$(NAME): $(OBJECT)
+	@$(eval TOTAL_FILES := $(shell echo $$(($(words $(SRCS)) + 1)))) # Add 1 for linking step
+	@$(CC) $(CCFLAG) -o $(NAME) $(OBJECT)
+	@$(LOGO)
+	@$(call progress_bar) # Progress bar for the final linking step
+	@echo "\n$(SUCCESS_COLOR)$(NAME) - Compiled with Success"
+
+$(BONUS): $(BONUS_OBJECT)
+	@$(eval TOTAL_FILES := $(shell echo $$(($(words $(BONUS_SRCS)) + 1)))) # Add 1 for linking step
+	@$(CC) $(CCFLAG) -o $(BONUS) $(BONUS_OBJECT)
+	@$(LOGO)
+	@$(call progress_bar) # Progress bar for the final linking step
+	@echo "$(SUCCESS_COLOR)$(BONUS) - Bonus Compiled with Success"
+
+# Object file compilation
+$(OBJ_DIR)/%.o: $(D_SRCS)%.c | $(OBJ_DIR)
+	@$(CC) $(CCFLAG) -I/includes -o $@ -c $<
+	$(call progress_bar)
+
+$(BONUS_OBJ_DIR)/%.o: $(D_BONUS_SRCS)%.c | $(BONUS_OBJ_DIR)
+	@$(CC) $(CCFLAG) -I/includes -o $@ -c $<
+	$(call progress_bar)
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
+$(BONUS_OBJ_DIR):
+	@mkdir -p $(BONUS_OBJ_DIR)
+
+# Ensure progress bar shows accurate progress
 define progress_bar
     @$(eval COMPILED_FILES=$(shell echo $$(($(COMPILED_FILES) + 1))))
     @if [ $(TOTAL_FILES) -gt 0 ]; then \
@@ -65,37 +98,6 @@ define progress_bar
         printf "\rCompiling project[%-20s] %d%%" $$BAR $$PROGRESS; \
     fi
 endef
-
-
-all : $(NAME)
-
-
-$(OBJ_DIR)/%.o: $(D_SRCS)%.c | $(OBJ_DIR)
-	@$(CC) $(CCFLAG) -I/includes -o $@ -c $<
-
-$(BONUS_OBJ_DIR)/%.o: $(D_BONUS_SRCS)%.c | $(BONUS_OBJ_DIR)
-	@$(CC) $(CCFLAG) -I/includes -o $@ -c $<
-
-# Create obj directory if it doesn't exist
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
-
-$(BONUS_OBJ_DIR):
-	@mkdir -p $(BONUS_OBJ_DIR)
-
-$(NAME) : $(OBJECT)
-	@$(LOGO)
-	$(call progress_bar)
-	@$(CC) $(CCFLAG) -o $(NAME) $(OBJECT)
-	@echo "\n$(SUCCESS_COLOR)$(NAME) - Compiled with Success"
-
-$(BONUS): $(BONUS_OBJECT)
-	@$(LOGO)
-	$(call progress_bar)
-	@$(CC) $(CCFLAG) -o $(BONUS) $(BONUS_OBJECT)
-	@echo "$(SUCCESS_COLOR)$(BONUS) - Bonus Compiled with Success"
-
-bonus: $(BONUS)
 
 clean :
 	@echo "$(SUCCESS_COLOR)$(NAME) - Cleaned with Success"

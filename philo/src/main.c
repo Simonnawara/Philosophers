@@ -6,7 +6,7 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:18:08 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/11 14:25:04 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:40:00 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,23 +114,6 @@ t_philo	*init_philo(t_table *table)
 	return (philo);
 }
 
-int	check_simulation_status(t_table *table)
-{
-	int status;
-
-	pthread_mutex_lock(&table->simulation_mutex);
-	status = table->simulation_running;
-	pthread_mutex_unlock(&table->simulation_mutex);
-	return (status);
-}
-
-void stop_simulation(t_table *table)
-{
-	pthread_mutex_lock(&table->simulation_mutex);
-	table->simulation_running = 0;
-	pthread_mutex_unlock(&table->simulation_mutex);
-}
-
 void *philo_routine(void *arg)
 {
     t_philo *philo;
@@ -156,10 +139,6 @@ void *philo_routine(void *arg)
 			first_fork = &philo->table->forks[philo->id % philo->table->num_philo];
     		second_fork = &philo->table->forks[philo->id - 1];
         }
-
-		/* pthread_mutex_lock(&philo->table->print_mutex);
-            printf("Before locking mutex.\n");
-		pthread_mutex_unlock(&philo->table->print_mutex); */
        
 		// lock forks
 		pthread_mutex_lock(first_fork);
@@ -208,7 +187,8 @@ int	main(int argc, char **argv)
 	}
 	if (table->num_philo == 1)
 	{
-		smart_sleep(philo->table->time_to_die);
+		usleep(philo->table->time_to_die);
+		//smart_sleep(philo->table->time_to_die);
 		print_status(philo, "Has died");
 		exit(1);
 	}
@@ -241,9 +221,6 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < table->num_philo)
 	{
-		/* pthread_detach(table->philosophers[i]);
-		pthread_mutex_destroy(&table->forks[i]);
-		i++; */
 		pthread_join(table->philosophers[i], NULL);
 		i++;
 	}

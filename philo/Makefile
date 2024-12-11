@@ -6,7 +6,7 @@
 #    By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/29 16:23:18 by sinawara          #+#    #+#              #
-#    Updated: 2024/12/10 13:30:55 by sinawara         ###   ########.fr        #
+#    Updated: 2024/12/11 10:02:21 by sinawara         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ BONUS_SRCS =
 
 CC = gcc
 CCFLAG = -Wall -Werror -Wextra -pthread
+# -fsanitize=thread
 
 SUCCESS_COLOR = \033[38;2;220;220;200m
 

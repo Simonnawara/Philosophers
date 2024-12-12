@@ -6,7 +6,7 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:18:08 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/11 15:55:18 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/12 16:49:20 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,22 +134,18 @@ void	*philo_routine(void *arg)
 				% philo->table->num_philo];
 			second_fork = &philo->table->forks[philo->id - 1];
 		}
-
 		pthread_mutex_lock(first_fork);
 		print_status(philo, "Has taken a fork");
 		pthread_mutex_lock(second_fork);
 		print_status(philo, "Has taken a fork");
-
 		pthread_mutex_lock(&philo->meal_mutex);
 		gettimeofday(&philo->last_meal_time, NULL);
 		pthread_mutex_unlock(&philo->meal_mutex);
 		print_status(philo, "is eating");
 		smart_sleep(philo->table->time_to_eat);
 		philo->meals_eaten++;
-
 		pthread_mutex_unlock(second_fork);
 		pthread_mutex_unlock(first_fork);
-
 		print_status(philo, "is sleeping");
 		smart_sleep(philo->table->time_to_sleep);
 	}
@@ -177,9 +173,8 @@ int	main(int argc, char **argv)
 	}
 	if (table->num_philo == 1)
 	{
-		usleep(philo->table->time_to_die);
-		// smart_sleep(philo->table->time_to_die);
-		print_status(philo, "Has died");
+		usleep(table->time_to_die * 1000);
+		printf("%dms 1 has died\n", table->time_to_die);
 		exit(1);
 	}
 	i = 0;

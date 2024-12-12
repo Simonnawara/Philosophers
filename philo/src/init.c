@@ -6,7 +6,7 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:33:16 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/12 17:33:43 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:37:53 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,25 @@ t_table	*init_table(int argc, char **argv)
 		return (NULL);
 	}
 	return (table);
+}
+
+t_philo	*init_philo(t_table *table)
+{
+	t_philo	*philo;
+	int		i;
+
+	philo = malloc(sizeof(t_philo) * table->num_philo);
+	if (!philo)
+		return (NULL);
+	i = 0;
+	while (i < table->num_philo)
+	{
+		philo[i].id = i + 1;
+		philo[i].meals_eaten = 0;
+		philo[i].table = table;
+		gettimeofday(&philo[i].last_meal_time, NULL);
+		pthread_mutex_init(&philo[i].meal_mutex, NULL);
+		i++;
+	}
+	return (philo);
 }

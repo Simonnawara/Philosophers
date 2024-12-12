@@ -6,7 +6,7 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:18:08 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/12 17:33:36 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:37:47 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,6 @@ void	validate_inputs(int argc, char **argv)
 		ft_putendl_fd("Error: Number of times to eat must be positive", 2);
 		exit(EXIT_FAILURE);
 	}
-}
-
-t_philo	*init_philo(t_table *table)
-{
-	t_philo	*philo;
-	int		i;
-
-	philo = malloc(sizeof(t_philo) * table->num_philo);
-	if (!philo)
-		return (NULL);
-	i = 0;
-	while (i < table->num_philo)
-	{
-		philo[i].id = i + 1;
-		philo[i].meals_eaten = 0;
-		philo[i].table = table;
-		gettimeofday(&philo[i].last_meal_time, NULL);
-		pthread_mutex_init(&philo[i].meal_mutex, NULL);
-		i++;
-	}
-	return (philo);
 }
 
 int	main(int argc, char **argv)

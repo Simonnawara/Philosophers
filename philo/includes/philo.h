@@ -1,5 +1,17 @@
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/12 17:39:57 by sinawara          #+#    #+#             */
+/*   Updated: 2024/12/12 17:40:34 by sinawara         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <fcntl.h>
 # include <libc.h>
@@ -38,16 +50,22 @@ typedef struct s_philo
 
 // main.c //
 void				validate_inputs(int argc, char **argv);
+
+// init.c //
 t_table				*init_table(int argc, char **argv);
 t_philo				*init_philo(t_table *table);
+
+// routine.c //
 void				*philo_routine(void *arg);
 
 // actions.c //
 void				print_status(t_philo *philo, char *status);
-void				*monitor_routine(void *arg);
 void				cleanup_resources(t_table *table, t_philo *philo);
 int					check_simulation_status(t_table *table);
 void				stop_simulation(t_table *table);
+
+// routine.c//
+void				*monitor_routine(void *arg);
 
 // time.c //
 long				get_timestamp(void);

@@ -6,7 +6,7 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:18:08 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/12 17:13:16 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:33:36 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,49 +43,6 @@ void	validate_inputs(int argc, char **argv)
 		ft_putendl_fd("Error: Number of times to eat must be positive", 2);
 		exit(EXIT_FAILURE);
 	}
-}
-
-t_table	*init_table(int argc, char **argv)
-{
-	t_table	*table;
-	int		i;
-
-	table = (t_table *)malloc(sizeof(t_table));
-	if (!table)
-		return (NULL);
-	table->philosophers = malloc(sizeof(pthread_t) * ft_atoi(argv[1]));
-	if (!table->philosophers)
-	{
-		free(table);
-		return (NULL);
-	}
-	table->forks = malloc(sizeof(pthread_mutex_t) * ft_atoi(argv[1]));
-	if (!table->forks)
-	{
-		free(table->philosophers);
-		free(table);
-		return (NULL);
-	}
-	pthread_mutex_init(&table->print_mutex, NULL);
-	pthread_mutex_init(&table->simulation_mutex, NULL);
-	table->simulation_running = 1;
-	table->num_philo = ft_atoi(argv[1]);
-	table->num_fork = ft_atoi(argv[1]);
-	table->time_to_die = ft_atoi(argv[2]);
-	table->time_to_eat = ft_atoi(argv[3]);
-	table->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		table->amount_to_eat = ft_atoi(argv[5]);
-	else
-		table->amount_to_eat = -1;
-	i = 0;
-	while (i < table->num_philo)
-	{
-		pthread_mutex_init(&table->forks[i], NULL);
-		i++;
-	}
-	gettimeofday(&table->simulation_start_time, NULL);
-	return (table);
 }
 
 t_philo	*init_philo(t_table *table)

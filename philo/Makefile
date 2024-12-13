@@ -6,13 +6,15 @@
 #    By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/29 16:23:18 by sinawara          #+#    #+#              #
-#    Updated: 2024/12/12 17:34:04 by sinawara         ###   ########.fr        #
+#    Updated: 2024/12/13 11:25:06 by sinawara         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 BONUS = philo_bonus
-SRCS = main.c utils.c actions.c actions_utils.c time.c routine.c init.c
+SRCS = main.c utils.c actions.c \
+		actions_utils.c time.c routine.c \
+		init.c check_args.c
 BONUS_SRCS =
 
 CC = gcc

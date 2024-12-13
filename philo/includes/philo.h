@@ -6,7 +6,7 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:39:57 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/12 17:40:34 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:13:13 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_philo
 	t_table			*table;
 }					t_philo;
 
-// main.c //
+// check_args.c //
 void				validate_inputs(int argc, char **argv);
 
 // init.c //

@@ -6,12 +6,14 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 15:46:13 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/12 16:39:09 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:45:47 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+// prints what the philosopher is doing
+// we decide of the output message
 void	print_status(t_philo *philo, char *status)
 {
 	if (check_simulation_status(philo->table))
@@ -22,6 +24,7 @@ void	print_status(t_philo *philo, char *status)
 	}
 }
 
+// Cleans and frees aeverything up to prevent any memory leaks
 void	cleanup_resources(t_table *table, t_philo *philo)
 {
 	int	i;

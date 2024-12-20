@@ -6,12 +6,13 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 11:12:26 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/13 11:19:30 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:38:50 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+// Validates argc and argv before proceeding to the rest of the code
 void	validate_inputs(int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)

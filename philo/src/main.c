@@ -6,21 +6,13 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:18:08 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/13 11:23:47 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:38:29 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-/*
-argv[0] = program name
-argv[1] = number_of_philosophers
-argv[2] = time_to_die
-argv[3] = time_to_eat
-argv[4] = time_to_sleep
-argv[5] = [number_of_times_each_philosopher_must_eat]
-*/
-
+// Handles the event of only one philosopher present
 void	one_philo(t_table *table)
 {
 	usleep(table->time_to_die * 1000);
@@ -28,6 +20,10 @@ void	one_philo(t_table *table)
 	exit(EXIT_SUCCESS);
 }
 
+// creates the threads responsible for the handling of the philosophers
+// calls philo_routine in a loop to account for all the philos
+// when we're done with the simulation we wait for all the threads to terminate
+// then we leave and free everything in the main
 static int	create_philo_threads(t_table *table, t_philo *philo)
 {
 	int	i;
@@ -49,6 +45,7 @@ static int	create_philo_threads(t_table *table, t_philo *philo)
 	return (1);
 }
 
+// same function as create_philo_threads
 static int	create_monitor_thread(t_table *table, pthread_t *monitor,
 								t_philo *philo)
 {
@@ -65,6 +62,8 @@ static int	create_monitor_thread(t_table *table, pthread_t *monitor,
 	return (1);
 }
 
+// Stops the simulation at the end of the main
+// Cleans up everything
 static void	join_all_threads(t_table *table, pthread_t monitor)
 {
 	int	i;

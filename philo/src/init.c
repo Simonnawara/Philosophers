@@ -6,7 +6,7 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:33:16 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/12 17:37:53 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:39:30 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	initialize_table_contents(t_table *table, int argc, char **argv)
 		table->amount_to_eat = -1;
 }
 
+// Initiates my t_table structure with all the necessary values
 t_table	*init_table(int argc, char **argv)
 {
 	t_table	*table;
@@ -80,6 +81,7 @@ t_table	*init_table(int argc, char **argv)
 	return (table);
 }
 
+// Initiates my t_philo structure with add the necessary vales
 t_philo	*init_philo(t_table *table)
 {
 	t_philo	*philo;

@@ -6,7 +6,7 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:13:24 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/13 11:19:04 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:41:50 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,18 @@ static void	eat_meal(t_philo *philo)
 	pthread_mutex_lock(&philo->meal_mutex);
 	gettimeofday(&philo->last_meal_time, NULL);
 	pthread_mutex_unlock(&philo->meal_mutex);
-	print_status(philo, "is eating");
+	if (philo->meals_eaten < philo->table->amount_to_eat)
+		print_status(philo, "is eating");
 	smart_sleep(philo->table->time_to_eat);
 	philo->meals_eaten++;
 }
 
+// Creates the routine of the philosopher
+// 1. thinks
+// 2. takes forks (locks mutex)
+// 3. eats
+// 4. puts down fors (unlock mutex)
+// 5. Sleeps
 void	*philo_routine(void *arg)
 {
 	t_philo			*philo;

@@ -6,12 +6,16 @@
 /*   By: sinawara <sinawara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:39:12 by sinawara          #+#    #+#             */
-/*   Updated: 2024/12/13 11:18:55 by sinawara         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:49:08 by sinawara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+// Checks if a philo has died by comparing the time since their last meal
+// with the maximum time allowed (time_to_die).
+// If a philosopher has died, the simulation stops
+// and returns 1; otherwise, it returns 0.
 static int	check_philo_death(t_philo *philo)
 {
 	struct timeval	current_time;
@@ -31,6 +35,8 @@ static int	check_philo_death(t_philo *philo)
 	return (0);
 }
 
+// Checks if all philosophers have eaten at least the required number of meals.
+// If no such requirement exists (amount_to_eat == -1), this always returns 0.
 static int	check_all_ate_enough(t_philo *philos)
 {
 	int	i;
@@ -45,6 +51,9 @@ static int	check_all_ate_enough(t_philo *philos)
 	return (1);
 }
 
+// Monitors the simulation, checks for philo deaths or if all have eaten enough
+// If a death happens, or all have eaten sufficiently, it stops the simulation
+// It runs in its own thread and exits when the simulation ends.
 void	*monitor_routine(void *arg)
 {
 	t_philo	*philos;

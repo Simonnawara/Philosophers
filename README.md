@@ -1,4 +1,4 @@
-# philosophers
+# Philosophers
 
 The philosophers project is a parallel computing project.
 </br>
